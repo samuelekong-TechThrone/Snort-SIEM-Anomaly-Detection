@@ -77,7 +77,6 @@ The goal was to design, implement, and test custom Snort rules capable of identi
 
 ## 📂 Repository Contents
 - `/rules` → Custom Snort rules
-- `/logs` → Sample alert logs
 - `/docs` → Detailed documentation
 - `/screenshots` → Visual evidence (optional)
 
