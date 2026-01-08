@@ -1,0 +1,193 @@
+############################################
+# CUSTOM SNORT RULES
+# Project: SIEM Anomaly Detection
+# Focus: SQL Injection & Nmap Scanning
+############################################
+
+
+############################
+# SQL INJECTION DETECTION
+############################
+
+# Detect SQL SELECT statement
+alert tcp any any -> $HOME_NET 80 (
+    msg:"SQL Injection - SELECT Statement";
+    content:"SELECT";
+    nocase;
+    http_uri;
+    sid:1001001;
+    rev:1;
+)
+
+# Detect UNION keyword
+alert tcp any any -> $HOME_NET 80 (
+    msg:"SQL Injection - UNION Keyword";
+    content:"UNION";
+    nocase;
+    http_uri;
+    sid:1001002;
+    rev:1;
+)
+
+# Detect SQL comment sequence --
+alert tcp any any -> $HOME_NET 80 (
+    msg:"SQL Injection - SQL Comment";
+    content:"--";
+    nocase;
+    http_uri;
+    sid:1001003;
+    rev:1;
+)
+
+# Detect INSERT statement
+alert tcp any any -> $HOME_NET 80 (
+    msg:"SQL Injection - INSERT Statement";
+    content:"INSERT";
+    nocase;
+    http_uri;
+    sid:1001004;
+    rev:1;
+)
+
+# Detect DROP statement
+alert tcp any any -> $HOME_NET 80 (
+    msg:"SQL Injection - DROP Statement";
+    content:"DROP";
+    nocase;
+    http_uri;
+    sid:1001005;
+    rev:1;
+)
+
+# Detect UPDATE statement
+alert tcp any any -> $HOME_NET 80 (
+    msg:"SQL Injection - UPDATE Statement";
+    content:"UPDATE";
+    nocase;
+    http_uri;
+    sid:1001006;
+    rev:1;
+)
+
+# Detect DELETE statement
+alert tcp any any -> $HOME_NET 80 (
+    msg:"SQL Injection - DELETE Statement";
+    content:"DELETE";
+    nocase;
+    http_uri;
+    sid:1001007;
+    rev:1;
+)
+
+# Detect OR 1=1 condition
+alert tcp any any -> $HOME_NET 80 (
+    msg:"SQL Injection - OR 1=1 Condition";
+    content:"OR 1=1";
+    nocase;
+    http_uri;
+    sid:1001008;
+    rev:1;
+)
+
+# Detect SLEEP() time-based SQL injection
+alert tcp any any -> $HOME_NET 80 (
+    msg:"SQL Injection - SLEEP Function";
+    content:"SLEEP(";
+    nocase;
+    http_uri;
+    sid:1001009;
+    rev:1;
+)
+
+# Detect hexadecimal encoding (0x)
+alert tcp any any -> $HOME_NET 80 (
+    msg:"SQL Injection - Hexadecimal Encoding";
+    content:"0x";
+    nocase;
+    http_uri;
+    sid:1001010;
+    rev:1;
+)
+
+
+############################
+# NMAP SCAN DETECTION
+############################
+
+# TCP SYN scan
+alert tcp any any -> $HOME_NET any (
+    msg:"Nmap Scan - TCP SYN Scan";
+    flags:S;
+    sid:1002001;
+    rev:1;
+)
+
+# TCP FIN scan
+alert tcp any any -> $HOME_NET any (
+    msg:"Nmap Scan - TCP FIN Scan";
+    flags:F;
+    sid:1002002;
+    rev:1;
+)
+
+# Xmas scan
+alert tcp any any -> $HOME_NET any (
+    msg:"Nmap Scan - Xmas Scan";
+    flags:FPU;
+    sid:1002003;
+    rev:1;
+)
+
+# Null scan
+alert tcp any any -> $HOME_NET any (
+    msg:"Nmap Scan - Null Scan";
+    flags:0;
+    sid:1002004;
+    rev:1;
+)
+
+# Aggressive scan (Nmap signature)
+alert tcp any any -> $HOME_NET any (
+    msg:"Nmap Scan - Aggressive Scan Detected";
+    content:"Nmap";
+    sid:1002005;
+    rev:1;
+)
+
+# OS fingerprinting attempt
+alert tcp any any -> $HOME_NET any (
+    msg:"Nmap Scan - OS Fingerprinting Attempt";
+    flags:S12;
+    sid:1002006;
+    rev:1;
+)
+
+# Version detection scan
+alert tcp any any -> $HOME_NET any (
+    msg:"Nmap Scan - Version Detection";
+    content:"Version";
+    sid:1002007;
+    rev:1;
+)
+
+# UDP scan
+alert udp any any -> $HOME_NET any (
+    msg:"Nmap Scan - UDP Scan";
+    sid:1002008;
+    rev:1;
+)
+
+# ICMP ping sweep
+alert icmp any any -> $HOME_NET any (
+    msg:"Nmap Scan - Ping Sweep";
+    sid:1002009;
+    rev:1;
+)
+
+# TCP ACK scan
+alert tcp any any -> $HOME_NET any (
+    msg:"Nmap Scan - ACK Scan";
+    flags:A;
+    sid:1002010;
+    rev:1;
+)
